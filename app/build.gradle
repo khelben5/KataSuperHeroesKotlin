@@ -61,6 +61,10 @@ dependencies {
     }
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.2"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.0"
+    androidTestImplementation('com.schibsted.spain:barista:2.7.1') {
+        exclude group: 'com.android.support'
+        exclude group: 'org.jetbrains.kotlin' // Only if you already use Kotlin in your project
+    }
 }
 
 configurations.all {
