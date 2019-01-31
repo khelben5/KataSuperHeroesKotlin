@@ -15,5 +15,7 @@
   ~ limitations under the License.
   -->
 <resources>
-  <string name="app_name">Kata Screenshot</string>
+    <string name="app_name">Kata Screenshot</string>
+    <string name="not_found">NOT FOUND</string>
+    <string name="network_error">NETWOR ERROR</string>
 </resources>

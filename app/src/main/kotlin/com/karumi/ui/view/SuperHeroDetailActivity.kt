@@ -56,6 +56,14 @@ class SuperHeroDetailActivity : BaseActivity(), SuperHeroDetailPresenter.View {
         iv_super_hero_photo.setImageBackground(superHero.photo)
     }
 
+    override fun showNotFoundError() {
+        error.text=getString(R.string.not_found)
+    }
+
+    override fun showNetworkError() {
+        error.text=getString(R.string.network_error)
+    }
+
     override val activityModules = Module(allowSilentOverride = true) {
         bind<SuperHeroDetailPresenter>() with provider {
             SuperHeroDetailPresenter(this@SuperHeroDetailActivity, instance())

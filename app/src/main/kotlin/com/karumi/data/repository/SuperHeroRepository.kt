@@ -1,6 +1,8 @@
 package com.karumi.data.repository
 
 import android.util.Log
+import com.karumi.domain.model.Result
+import com.karumi.domain.model.Success
 import com.karumi.domain.model.SuperHero
 
 class SuperHeroRepository {
@@ -20,9 +22,9 @@ class SuperHeroRepository {
         return superHeroes
     }
 
-    fun getByName(name: String): SuperHero {
+    fun getByName(name: String): Result<SuperHero> {
         waitABit()
-        return superHeroes.first { it.name == name }
+        return Success(superHeroes.first { it.name == name })
     }
 
     private fun waitABit() {

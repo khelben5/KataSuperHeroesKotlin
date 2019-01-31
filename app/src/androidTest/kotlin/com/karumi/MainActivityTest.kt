@@ -19,6 +19,7 @@ import com.karumi.matchers.ToolbarMatcher
 import com.karumi.ui.view.MainActivity
 import com.karumi.ui.view.SuperHeroDetailActivity
 import com.karumi.ui.view.adapter.SuperHeroViewHolder
+import com.karumi.mothers.SuperHeroesMother
 import com.nhaarman.mockitokotlin2.whenever
 import org.hamcrest.core.IsNot.not
 import org.junit.Test
@@ -105,7 +106,7 @@ class MainActivityTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         whenever(repository.getAllSuperHeroes()).thenReturn(heroesList)
     }
 
-    private fun givenThereIsJustAnAvenger():List<SuperHero> {
+    private fun givenThereIsJustAnAvenger(): List<SuperHero> {
         val heroes = listOf(SuperHeroesMother.givenAnySuperHero { isAvenger = true })
         givenSuperHeroList(heroes)
         return heroes
@@ -124,26 +125,5 @@ class MainActivityTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     override val testDependencies = Kodein.Module(allowSilentOverride = true) {
         bind<SuperHeroRepository>() with instance(repository)
-    }
-
-
-    private class SuperHeroesMother {
-
-        companion object {
-            fun givenAnySuperHeroesList(): List<SuperHero> =
-                (0..4).map { givenAnySuperHero { } }
-
-            fun givenAnySuperHero(block: SuperHeroBuilder.() -> Unit) =
-                SuperHeroBuilder().apply(block).build()
-        }
-
-        class SuperHeroBuilder {
-            var name: String = "Name"
-            var photo: String? = "Photo"
-            var isAvenger: Boolean = false
-            var description: String = "Description"
-
-            fun build() = SuperHero(name, photo, isAvenger, description)
-        }
     }
 }

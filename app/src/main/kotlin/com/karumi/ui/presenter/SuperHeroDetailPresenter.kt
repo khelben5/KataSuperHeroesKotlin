@@ -6,6 +6,9 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import com.karumi.common.async
 import com.karumi.common.weak
+import com.karumi.domain.model.NetworkError
+import com.karumi.domain.model.NotFound
+import com.karumi.domain.model.Success
 import com.karumi.domain.model.SuperHero
 import com.karumi.domain.usecase.GetSuperHeroByName
 import kotlinx.coroutines.CoroutineScope
@@ -44,7 +47,11 @@ class SuperHeroDetailPresenter(
     private fun refreshSuperHeroes() = launch {
         val result = async { getSuperHeroByName(name) }
         view?.hideLoading()
-        view?.showSuperHero(result)
+        when(result){
+            is Success -> view?.showSuperHero(result.value)
+            is NotFound -> view?.showNotFoundError()
+            is NetworkError -> view?.showNetworkError()
+        }
     }
 
     interface View {
@@ -52,5 +59,7 @@ class SuperHeroDetailPresenter(
         fun showLoading()
         fun hideLoading()
         fun showSuperHero(superHero: SuperHero)
+        fun showNotFoundError()
+        fun showNetworkError()
     }
 }
